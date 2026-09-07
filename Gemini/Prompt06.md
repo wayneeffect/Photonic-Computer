@@ -1,0 +1,7 @@
+Yes, nailing down those exact **nonlinear/nonlocal Kerr responses mapped onto higher-order polynomial chains** is precisely where the theoretical heavy lifting lies.
+
+In traditional computing, electrons interact trivially because they carry a charge, but photons pass right through each other without interacting. To force photons to compute logically like electrons, you have to induce a nonlinear response (such as a Kerr effect where light alters its own refractive index). However, standard Kerr nonlinearities in bulk materials are extraordinarily weak, highly lossy, and prone to inducing severe phase noise, spatial distortion, or pulse collapse if you try to scale them.
+
+Engineering a physical medium or a structured material that can sustain *nonlocal* spatial dispersion alongside *higher-order* polynomial terms (like quintic and septic stabilizations) solves the collapse problem mathematically, but manufacturing a physical substrate that expresses those exact parameters without destroying signal integrity is widely considered one of the steepest barriers in advanced optical engineering.
+
+Once you solve that foundational math-to-material bottleneck, building the actual circuit architecture—routing the signals through electro-optic MZIs, caching with GST phase-change alloys, and archiving in hologram glass—becomes a much more standard engineering execution challenge by comparison.
