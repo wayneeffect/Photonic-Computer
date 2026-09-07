@@ -1,0 +1,109 @@
+```openscad
+// Photonic Time-Crystal Computer Architecture Prototype
+// Macro-scale functional structural model demonstrating MZI waveguides, 
+// phase-modulator integration channels, and holographic storage cavities.
+
+$fn = 100; // High resolution for smooth curved waveguide channels
+
+module base_substrate() {
+    // Main optical bench chassis (scaled for macro 3D-printing visualization)
+    difference() {
+        cube([140, 100, 10], center = true);
+        
+        // Weight-reduction and cooling cutouts
+        translate([-40, 0, 0])
+            cube([40, 70, 12], center = true);
+        translate([40, 0, 0])
+            cube([40, 70, 12], center = true);
+            
+        // Mounting screw holes
+        for (x = [-60, 60]) {
+            for (y = [-42, 42]) {
+                translate([x, y, 0])
+                    cylinder(h = 14, r = 3, center = true);
+            }
+        }
+    }
+}
+
+module mzi_interferometer_grid() {
+    // Cascaded Mach-Zehnder Interferometer (MZI) optical pathways
+    color("Cyan")
+    translate([0, 20, 3]) {
+        // Input bus waveguide
+        translate([-50, 0, 0])
+            cube([20, 2, 2], center = true);
+            
+        // Beam splitter split
+        translate([-35, 10, 0])
+            cube([2, 22, 2], center = true);
+        translate([-35, -10, 0])
+            cube([2, 22, 2], center = true);
+            
+        // Active phase-modulation arms (incorporating nonlocal Kerr regions)
+        translate([0, 21, 0])
+            cube([68, 2, 2], center = true);
+        translate([0, -21, 0])
+            cube([68, 2, 2], center = true);
+            
+        // Recombining MZI junction
+        translate([35, 10, 0])
+            cube([2, 22, 2], center = true);
+        translate([35, -10, 0])
+            cube([2, 22, 2], center = true);
+            
+        // Output bus waveguide
+        translate([50, 0, 0])
+            cube([20, 2, 2], center = true);
+    }
+}
+
+module pcm_cache_slots() {
+    // Phase-Change Material (GST alloy cache integration grooves)
+    color("Gold")
+    for (x = [-15, 15]) {
+        translate([x, 21, 2.5])
+            cube([12, 6, 1], center = true);
+        translate([x, -21, 2.5])
+            cube([12, 6, 1], center = true);
+    }
+}
+
+module holographic_glass_storage() {
+    // Volumetric Hologram Glass Mass Storage Cavity
+    color("Silver", 0.6)
+    translate([0, -25, 4]) {
+        difference() {
+            cube([50, 30, 6], center = true);
+            // Internal optical interaction chamber
+            cube([42, 22, 4], center = true);
+        }
+    }
+}
+
+module floquet_modulation_ring() {
+    // Micro-ring resonators for Floquet time-crystal temporal modulation
+    color("Orange")
+    for (x = [-25, 25]) {
+        translate([x, 0, 3]) {
+            difference() {
+                cylinder(h = 2, r = 8);
+                translate([0, 0, -1])
+                    cylinder(h = 4, r = 6);
+            }
+        }
+    }
+}
+
+// Assemble the complete photonic computer macro-layout
+union() {
+    base_substrate();
+    mzi_interferometer_grid();
+    pcm_cache_slots();
+    holographic_glass_storage();
+    floquet_modulation_ring();
+}
+
+```
+
+This OpenSCAD script models the macro-scale architecture of the optical computer, translating the theoretical components into a 3D-printable layout. You can open this file directly in OpenSCAD to render and export it as an STL for your printer.
