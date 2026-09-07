@@ -1,0 +1,76 @@
+// Photonic Time Crystal Logic Gate - Scaled Educational Model
+// Based on wayneeffect/Photonic-Computer ptc_logic_gate.py
+// Scale: original µm → mm (1000×) for desktop printing
+// Units: mm
+
+$fn = 32;
+height = 3;          // Extrusion height of waveguides
+base_height = 1.5;   // Base plate thickness
+ptc_height = 5;      // Raised PTC region
+
+module waveguide_rect(x1, y1, x2, y2, w=2) {
+    // Simple rectangular waveguide segment
+    hull() {
+        translate([x1, y1, 0]) cube([0.1, w, height]);
+        translate([x2, y2, 0]) cube([0.1, w, height]);
+    }
+}
+
+module model() {
+    // Base plate
+    color("gray")
+    translate([-5, -5, -base_height])
+        cube([80, 25, base_height]);
+
+    // Input waveguide A (top)
+    color("cyan") {
+        translate([0, 10, 0]) cube([15, 2, height]);  // main
+    }
+
+    // Input waveguide B (bottom)
+    color("cyan") {
+        translate([0, 2, 0]) cube([15, 2, height]);
+    }
+
+    // Taper / merge section (simplified)
+    color("cyan") {
+        // Approximate the four taper lines with a triangular-ish merge
+        hull() {
+            translate([15, 10, 0]) cube([0.1, 2, height]);
+            translate([15, 2, 0]) cube([0.1, 2, height]);
+            translate([25, 6, 0]) cube([0.1, 2, height]);
+        }
+    }
+
+    // Central PTC region (raised magenta block)
+    color("magenta")
+    translate([25, 3, 0])
+        cube([20, 8, ptc_height]);
+
+    // Decorative vertical lines on PTC (as in the DXF hatch)
+    color("purple")
+    for (i = [0:5]) {
+        translate([27 + i*3, 4, ptc_height])
+            cube([0.8, 6, 0.8]);
+    }
+
+    // Output waveguide
+    color("cyan")
+    translate([45, 6, 0])
+        cube([25, 2, height]);
+
+    // Pump indication (raised arrow-like feature)
+    color("red") {
+        translate([30, 14, 0]) cube([10, 1.5, 2]);
+        // simple arrow head
+        translate([38, 13.25, 0]) 
+            linear_extrude(height=2)
+            polygon([[0,0], [3,1.5], [0,3]]);
+    }
+}
+
+model();
+
+// Optional: add text labels (may need font support)
+// translate([2, 13.5, height+0.1]) linear_extrude(0.5) text("INPUT A", size=1.5);
+// etc.
